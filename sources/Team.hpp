@@ -18,16 +18,23 @@ namespace ariel {
 class Team{
     private:
     Character* leader;
-    vector<Character> members;
+    vector<Character*> members;
 
     public:
     Team(Character* leader);
-    ~Team();
+    Team();
+    Team(const Team& other) = default;
+    Team& operator=(const Team& other) = default;
+    Team(Team&& other) = default;
+    Team& operator=(Team&& other) = default;
+    virtual ~Team();
+    Character* getLeader() const;
     void add(Character* member);
-    void attack(Team* enemy);
+    virtual void attack(Team* enemy);
+    Character* getClosestEnemy(Team* enemy);
+    vector<Character*> getMembers();
     int stillAlive();
-    string print();
+    virtual void print();   
 };
 }
-
 #endif

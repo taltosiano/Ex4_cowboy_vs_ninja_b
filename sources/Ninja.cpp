@@ -19,20 +19,25 @@ namespace ariel {
         Point myNewLoc(getLocation().getX() + this->speed * dx, getLocation().getY() + this->speed * dy);
         setLocation(myNewLoc);
     }
-    void Ninja::slash( Character* enemy){
-        if(isAlive() && distance(enemy) < 1000){
+    void Ninja::slash(Character* enemy){
+        if(!(this->isAlive()) || !(enemy->isAlive()) || enemy == this){     
+            throw std::runtime_error("Dead characters cannot attack and characters cannot attack a dead enemy + cannot self harm\n"); 
+        }
+
+        if(distance(enemy) < 1){
             enemy->hit(40);
         }
-        else{
-            cout << " Nothing is change !" << endl;      
-        };
     }
     int Ninja::getSpeed(){
         return this->speed;
     }
 
     string Ninja::print(){
-         return "Ninja: " + getName() + " ( number of hit points: " + to_string(getHitPoints()) 
+        if (!isAlive()) {
+        return '(' + getName() + ')';
+    } else {
+         return "N: " + getName() + " ( number of hit points: " + to_string(getHitPoints()) 
          + "), position: (" + to_string(getLocation().getX()) + ", " + to_string(getLocation().getY()) + "), ";
+    };
     }
-};
+}

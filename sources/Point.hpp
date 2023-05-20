@@ -4,6 +4,7 @@
 #pragma once
 #include <cmath>
 #include <iostream>
+#include <stdexcept>
 
 namespace ariel {
 class Point {
@@ -13,10 +14,10 @@ private:
 
 public:
     Point();
-    Point(double x, double y);
-    double distance(const Point& p);
+    Point(double pointX, double pointY);
+    double distance(const Point& point);
     void print();
-    Point moveTowards(const Point& source, const Point& dest, double distance);
+    static Point moveTowards(Point source, Point dest, double distance);
     double getX() const;
     double getY() const;
 };

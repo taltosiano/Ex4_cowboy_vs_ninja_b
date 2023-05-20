@@ -9,13 +9,48 @@ using namespace std;
 namespace ariel{
 
     Character::Character(Point location, int hitPoint, string name)
-    : location(location), hitPoint(hitPoint), name(name) {}
+    : location(location), hitPoint(hitPoint), name(name), freeMember(true) {}
+////
+    Character::Character(const Character& other): location(other.location), hitPoint(other.hitPoint), name(other.name){}
+    Character::~Character() {}
 
-    bool Character::isAlive(){
+Character& Character::operator=(const Character& other)
+{
+    if (this != &other) {
+        location = other.location;
+        hitPoint = other.hitPoint;
+        name = other.name;
+    }
+    return *this;
+}
+
+Character::Character(Character&& other) noexcept : location(other.location), hitPoint(other.hitPoint), name(std::move(other.name)){}
+
+Character& Character::operator=(Character&& other) noexcept
+{
+    if (this != &other) {
+        hitPoint = other.hitPoint;
+        name = std::move(other.name);
+        location = other.location;
+    }
+    return *this;
+}
+///
+
+    bool Character::isAlive() const{
         if (this->getHitPoints() > 0)
             return true;
         return false;
     }
+
+    void Character::addToTeam(){
+         freeMember = false;
+    }
+
+    bool Character::isFreeMember(){
+        return freeMember;
+    }
+
 
     double Character::distance(Character* other){
         double dx = this->getLocation().getX() - other->getLocation().getX();
@@ -30,11 +65,11 @@ namespace ariel{
         this->hitPoint -= num;
     }
 
-    string Character::getName() {
+    string Character::getName() const{
         return this->name;
     }
 
-    Point Character::getLocation(){
+    Point Character::getLocation() const{
         return this->location;
     }
 
@@ -42,17 +77,7 @@ namespace ariel{
         this->location = newLoc;
     }
 
-    string Character::print(){
-       if (!isAlive()) {
-        return '(' + name + ')';
-    } else {
-                // If the character is alive, print the number of hit points and position
-        return "( number of hit points" + to_string(getHitPoints()) + "), position: (" + 
-                        to_string(getLocation().getX()) + ", " + to_string(getLocation().getY()) + ")";
-    }       
-    }
-
-    int Character::getHitPoints(){
+    int Character::getHitPoints() const{
         return this->hitPoint;
     }
 

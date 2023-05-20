@@ -1,7 +1,6 @@
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
 
-#pragma once
 #include <iostream>
 #include <string>
 #include <cmath>
@@ -13,19 +12,28 @@ class Character{
     private:
         Point location;
         int hitPoint;
-        string name;
+        std::string name;
+        bool freeMember;
 
     public:
-    Character(Point location, int hitPoint, string name);
-    virtual ~Character() = default;
-    virtual bool isAlive();
-    virtual double distance(Character* other);
-    virtual void hit(int num);
-    virtual string getName();
-    virtual Point getLocation();
-    void setLocation(Point location);
-    virtual string print();
-    int getHitPoints();
+    Character(Point location, int hitPoint, std::string name);
+    //Character() = default;
+    Character& operator=(Character&&) noexcept;
+    virtual ~Character(); //= default;
+    bool isAlive() const;
+    double distance(Character* other);
+    void hit(int num);
+    std::string getName() const;
+    Point getLocation() const;
+    void setLocation(Point newLoc);
+    virtual std::string print() = 0;
+    int getHitPoints() const;
+    bool isFreeMember();
+    void addToTeam();
+
+    Character(const Character&);
+    Character& operator=(const Character&); //==delete?
+    Character(Character&&) noexcept;
 };
 }
 #endif

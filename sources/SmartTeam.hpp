@@ -6,21 +6,18 @@
 #include <vector>
 #include <algorithm>
 #include "Point.hpp"
+#include "Team.hpp"
 #include "Character.hpp"
 
 namespace ariel{
-class SmartTeam{
-private:
-    Character* leader;
-    vector<Character> members;
-
+class SmartTeam : public Team{
     public:
     SmartTeam(Character* leader);
-    ~SmartTeam();
-    void add(Character* member);
-    void attack(SmartTeam* enemy);
-    int stillAlive();
-    string print();
+    SmartTeam();
+   // void add(Character* member);
+    void attack(Team* enemy) override;
+  //  int stillAlive();
+    void print() override;
 
 };
 }

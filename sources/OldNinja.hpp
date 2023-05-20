@@ -1,8 +1,6 @@
 #ifndef OLDNINJA_HPP
 #define OLDNINJA_HPP
 
-#pragma once
-
 #include <iostream>
 #include <string>
 #include <utility>
