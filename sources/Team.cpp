@@ -38,37 +38,93 @@ namespace ariel{
                  return this->members;
             }
 
-  void Team::attack(Team *enemy){
+ void Team::attack(Team *enemy){
     if(enemy == nullptr){
         throw std::invalid_argument("cannot attack- enemy is not exist");
     }
     if (stillAlive() == 0) {
-        std::cout << "Team is defeated and cannot attack" << std::endl;
-        return;
+        throw runtime_error("Team is dead");
     }
     if (enemy->stillAlive() == 0) {
-        std::cout << "Enemy team is already defeated" << std::endl;
-        return;
+       throw std::runtime_error("the attacked team is dead!");
     }
-    //Character* closestEnemy = getClosestEnemy(&*enemy);
-    std::vector<Character*> attackers;
-    for (auto& member : members) {
-        if (member->isAlive()) {
-            attackers.push_back(member);
+     if(leader == nullptr) return;
+     Character *target = getClosestEnemy(enemy);
+
+    for (const auto &member: members) { // Cowboys
+        Cowboy *cowboy = dynamic_cast<Cowboy *>(member);
+        if (cowboy != nullptr) {
+            if(!cowboy->isAlive()) {
+            if (target->isAlive()) {
+                if (cowboy->hasboolets()) cowboy->shoot(target);
+                else cowboy->reload();
+            } else {
+                target = getClosestEnemy(enemy);
+                if (target == nullptr) return;
+                else if (cowboy->hasboolets()) cowboy->shoot(target);
+                else cowboy->reload();
+            }
         }
+        
+        if(enemy->stillAlive()==0){
+            
+            break;
+        }
+      
+  
+        
     }
-    for (auto attacker : attackers) {
-    if (attacker->isAlive()) {
-        Character* closestEnemy = getClosestEnemy(enemy);
-        if (attacker->distance(closestEnemy) <= 1) {
-            attacker->hit(3);
-            std::cout << attacker->getName() << " attacks " << closestEnemy->getName() << std::endl;
-        } else {
-            std::cout << attacker->getName() << " cannot attack " << closestEnemy->getName() << std::endl;
+
+  for (const auto &member: members) { // Ninjas
+        Ninja *ninja = dynamic_cast<Ninja *>(member);
+        if (ninja != nullptr) {
+            if(!ninja->isAlive()){
+            if (target->isAlive()){
+                if(ninja->distance(target) <= 1.0) ninja->slash(target);
+                else ninja->move(target);
+            } else {
+                target = getClosestEnemy(enemy);
+                if (target == nullptr) return;
+                else if (ninja->distance(target) <= 1.0) ninja->slash(target);
+                else {
+                    ninja->move(target);
+                }
+            }
+            if(enemy->stillAlive()==0){
+            
+            break;
+        }
+         }
         }
     }
 }
-  }
+
+ 
+//     Character* closestEnemy = getClosestEnemy(&*enemy);
+//     std::vector<Character*> attackers;
+//     for (auto& member : members) {
+//         if (member->isAlive()) {
+//             attackers.push_back(member);
+//         }
+//     }
+//     for (auto attacker : attackers) {
+//     if (attacker->isAlive()) {
+//         Character* closestEnemy = getClosestEnemy(enemy);
+//         if (attacker->distance(closestEnemy) <= 1) {
+//             attacker->hit(3);
+//             std::cout << attacker->getName() << " attacks " << closestEnemy->getName() << std::endl;
+//         } else {
+//             std::cout << attacker->getName() << " cannot attack " << closestEnemy->getName() << std::endl;
+//         }
+//     }
+
+//     if (enemy->stillAlive() == 0) {
+//         break; // exit the function early
+// }
+// }
+// }
+
+
 // Character* Team::getClosestEnemy(Team& enemy) {
 // Character* closestEnemy = nullptr;
 //     int min_distance = std::numeric_limits<double>::max();

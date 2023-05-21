@@ -24,7 +24,7 @@ class Character{
     double distance(Character* other);
     void hit(int num);
     std::string getName() const;
-    Point getLocation() const;
+    Point getLocation();
     void setLocation(Point newLoc);
     virtual std::string print() = 0;
     int getHitPoints() const;

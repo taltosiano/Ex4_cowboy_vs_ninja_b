@@ -69,7 +69,7 @@ Character& Character::operator=(Character&& other) noexcept
         return this->name;
     }
 
-    Point Character::getLocation() const{
+    Point Character::getLocation(){
         return this->location;
     }
 
