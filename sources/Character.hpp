@@ -14,26 +14,28 @@ class Character{
         int hitPoint;
         std::string name;
         bool freeMember;
+        bool isLeader_;
 
     public:
-    Character(Point location, int hitPoint, std::string name);
-    //Character() = default;
+    Character(Point location, int hitPoint, string name);
     Character& operator=(Character&&) noexcept;
-    virtual ~Character(); //= default;
+    virtual ~Character() = default;
     bool isAlive() const;
     double distance(Character* other);
     void hit(int num);
     std::string getName() const;
     Point getLocation();
     void setLocation(Point newLoc);
-    virtual std::string print() = 0;
+    virtual string print() = 0;
     int getHitPoints() const;
     bool isFreeMember();
     void addToTeam();
+    void isLeader();
+    bool isLeaderBul();
 
-    Character(const Character&);
-    Character& operator=(const Character&); //==delete?
-    Character(Character&&) noexcept;
+    Character(const Character& other);  // Copy constructor
+    Character& operator=(const Character&); 
+    Character(Character&& other) noexcept;  // Move constructor
 };
 }
 #endif

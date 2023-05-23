@@ -1,7 +1,6 @@
 #ifndef NINJA_HPP
 #define NINJA_HPP
 
-#pragma once
 #include <cmath>
 #include <iostream>
 #include <string>

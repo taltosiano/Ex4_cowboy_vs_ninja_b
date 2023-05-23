@@ -14,6 +14,7 @@ namespace ariel
     class YoungNinja : public Ninja
     {
         public:
+            YoungNinja();
             YoungNinja(string name, Point location);
 
     };

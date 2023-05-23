@@ -14,6 +14,7 @@ namespace ariel
     class TrainedNinja : public Ninja
     {
         public:
+            TrainedNinja();
             TrainedNinja(string name, Point location);
 
     };

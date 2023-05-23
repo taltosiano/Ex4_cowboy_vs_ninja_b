@@ -14,9 +14,7 @@ class SmartTeam : public Team{
     public:
     SmartTeam(Character* leader);
     SmartTeam();
-   // void add(Character* member);
     void attack(Team* enemy) override;
-  //  int stillAlive();
     void print() override;
 
 };

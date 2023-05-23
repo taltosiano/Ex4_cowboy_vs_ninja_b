@@ -1,9 +1,4 @@
-#include <cmath>
-#include <iostream>
-#include <string>
-#include "Point.hpp"
 #include "Ninja.hpp"
-#include "Character.hpp"
 
 using namespace std;
 
@@ -12,12 +7,8 @@ namespace ariel {
         : Character(location, hitPoints, std::move(name)), speed(speed) {}
         
     void Ninja::move( Character* enemy){
-        Point enemyLoc = enemy->getLocation();
-        double distance = this->distance(enemy);
-        double dx = (enemyLoc.getX() - getLocation().getX()) / distance;
-        double dy = (enemyLoc.getY() - getLocation().getY()) / distance;
-        Point myNewLoc(getLocation().getX() + this->speed * dx, getLocation().getY() + this->speed * dy);
-        setLocation(myNewLoc);
+        Point new_location = Point::moveTowards(this->getLocation(), enemy->getLocation(), this->getSpeed());
+        this->setLocation(new_location);
     }
     void Ninja::slash(Character* enemy){
         if(!(this->isAlive()) || !(enemy->isAlive()) || enemy == this){     

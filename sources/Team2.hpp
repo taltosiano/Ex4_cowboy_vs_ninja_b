@@ -14,12 +14,8 @@ class Team2 : public Team {
     public:
     Team2(Character* leader);
     Team2();
-    //void add(Character* member);
     void attack(Team* enemy) override;
-   // int stillAlive();
     void print() override;
-
-
 };
 }
 #endif

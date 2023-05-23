@@ -1,7 +1,3 @@
-#include <cmath>
-#include <iostream>
-#include <string>
-#include "Point.hpp"
 #include "Character.hpp"
 
 using namespace std;
@@ -9,33 +5,31 @@ using namespace std;
 namespace ariel{
 
     Character::Character(Point location, int hitPoint, string name)
-    : location(location), hitPoint(hitPoint), name(name), freeMember(true) {}
-////
+    : location(location), hitPoint(hitPoint), name(name), freeMember(true), isLeader_(false) {}
+    //copy constructor
     Character::Character(const Character& other): location(other.location), hitPoint(other.hitPoint), name(other.name){}
-    Character::~Character() {}
 
-Character& Character::operator=(const Character& other)
-{
+    Character& Character::operator=(const Character& other)
+    {
     if (this != &other) {
         location = other.location;
         hitPoint = other.hitPoint;
         name = other.name;
     }
     return *this;
-}
+    }
+    //move constructor
+    Character::Character(Character&& other) noexcept : location(std::move(other.location)), hitPoint(std::move(other.hitPoint)), name(std::move(other.name)){}
 
-Character::Character(Character&& other) noexcept : location(other.location), hitPoint(other.hitPoint), name(std::move(other.name)){}
-
-Character& Character::operator=(Character&& other) noexcept
-{
+    Character& Character::operator=(Character&& other) noexcept
+    {
     if (this != &other) {
-        hitPoint = other.hitPoint;
+        hitPoint = std::move(other.hitPoint);
         name = std::move(other.name);
-        location = other.location;
+        location = std::move(other.location);
     }
     return *this;
-}
-///
+    }
 
     bool Character::isAlive() const{
         if (this->getHitPoints() > 0)
@@ -50,7 +44,6 @@ Character& Character::operator=(Character&& other) noexcept
     bool Character::isFreeMember(){
         return freeMember;
     }
-
 
     double Character::distance(Character* other){
         double dx = this->getLocation().getX() - other->getLocation().getX();
@@ -77,9 +70,15 @@ Character& Character::operator=(Character&& other) noexcept
         this->location = newLoc;
     }
 
+    void Character::isLeader(){
+         this->isLeader_ = true;
+    }
+
+    bool Character::isLeaderBul(){
+        return isLeader_;
+    }
+
     int Character::getHitPoints() const{
         return this->hitPoint;
     }
-
 }
-

@@ -1,19 +1,16 @@
 #ifndef OLDNINJA_HPP
 #define OLDNINJA_HPP
 
-#include <iostream>
-#include <string>
-#include <utility>
 #include "Ninja.hpp"
 
+namespace ariel {
 
-namespace ariel
-{
-    class OldNinja : public Ninja
-    {
-        public:
-            OldNinja(string name, Point location);
+    class OldNinja : public Ninja {
+    public:
+        OldNinja(string name, Point location);
+        OldNinja();
     };
-}
 
-#endif
+}  
+
+#endif  

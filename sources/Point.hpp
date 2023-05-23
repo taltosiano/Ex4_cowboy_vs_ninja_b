@@ -1,7 +1,6 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 
-#pragma once
 #include <cmath>
 #include <iostream>
 #include <stdexcept>

@@ -29,12 +29,14 @@ class Team{
     Team& operator=(Team&& other) = default;
     virtual ~Team();
     Character* getLeader() const;
+    void setLeader(Character* lead);
     void add(Character* member);
     virtual void attack(Team* enemy);
     Character* getClosestEnemy(Team* enemy);
     vector<Character*> getMembers();
     int stillAlive();
-    virtual void print();   
+    virtual void print();
+    Character* getClosestAliveMember();   
 };
 }
 #endif

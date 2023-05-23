@@ -1,8 +1,6 @@
 #ifndef COWBOY_HPP
 #define COWBOY_HPP
 
-#pragma once
-#include <cmath>
 #include <iostream>
 #include <string>
 #include "Character.hpp"
@@ -18,7 +16,7 @@ class Cowboy : public Character {
     bool hasboolets();
     void reload();
     int getNumOfBoolets();
-    string print() override;
+    std::string print() override;
 
 };
 }

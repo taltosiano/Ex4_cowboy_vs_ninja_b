@@ -1,8 +1,4 @@
-#include <cmath>
-#include <iostream>
-#include <string>
 #include "Cowboy.hpp"
-#include "Character.hpp"
 
 using namespace std;
 
@@ -12,9 +8,15 @@ Cowboy::Cowboy(string name, Point location)
     : Character(location, 110, name), numOfBoolets(6) {}
 
 void Cowboy::shoot(Character* enemy){
-    if(!(this->isAlive()) || !(enemy->isAlive()) || enemy == this){     
-            throw std::runtime_error("Dead characters cannot attack and characters cannot attack a dead enemy + cannot self harm\n"); 
-        }
+    if(this == enemy){
+        throw std::runtime_error("no self harm!!");
+    }
+    if(!this->isAlive()){
+        throw std::runtime_error("this Cowboy is dead!");
+    }
+     if(!enemy->isAlive()){
+         throw std::runtime_error("this enemy is dead!");
+    }
     if(hasboolets()){
         enemy->hit(10);
         this->numOfBoolets -= 1;
@@ -50,6 +52,5 @@ string Cowboy::print(){
 
 };
 }
-
 
 }
