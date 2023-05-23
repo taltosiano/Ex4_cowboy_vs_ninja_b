@@ -21,6 +21,7 @@ namespace ariel{
             }
             Character* closetEnemy = getClosestEnemy(enemy_team); 
             int theMembers = this->getMembers().size();
+            // print character by intering order
             for (Character* member : this->getMembers()) {
                 if (closetEnemy == nullptr) {
                     break;

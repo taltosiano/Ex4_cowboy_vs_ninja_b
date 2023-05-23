@@ -8,7 +8,7 @@ namespace ariel{
     : location(location), hitPoint(hitPoint), name(name), freeMember(true), isLeader_(false) {}
     //copy constructor
     Character::Character(const Character& other): location(other.location), hitPoint(other.hitPoint), name(other.name){}
-
+    // Copy assignment operator
     Character& Character::operator=(const Character& other)
     {
     if (this != &other) {
@@ -20,7 +20,7 @@ namespace ariel{
     }
     //move constructor
     Character::Character(Character&& other) noexcept : location(std::move(other.location)), hitPoint(std::move(other.hitPoint)), name(std::move(other.name)){}
-
+    // move assignment operator
     Character& Character::operator=(Character&& other) noexcept
     {
     if (this != &other) {

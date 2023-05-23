@@ -11,8 +11,8 @@ namespace ariel{
             this->members.push_back(leader);
             leader->addToTeam();
             setLeader(leader);
-            //this->add(leader);
         }
+
         Team::Team(): leader(nullptr){ }
         void Team::add(Character *member){
                 if(!member){
@@ -30,20 +30,24 @@ namespace ariel{
                 this->members.push_back(member); 
                 member->addToTeam();
         }
-            Character* Team::getLeader() const{
+
+        Character* Team::getLeader() const{
                 return this->leader;
-                }
-            void Team::setLeader(Character* lead){
-                  if(lead->isLeaderBul()){
+        }
+
+        void Team::setLeader(Character* lead){
+                if(lead->isLeaderBul()){
                      throw std::runtime_error("err");
                      }
                  this->leader=lead;
                  lead->isLeader();
                 }
-            vector<Character*> Team::getMembers() {
+
+        vector<Character*> Team::getMembers() {
                  return this->members;
             }
-Character * Team::getClosestAliveMember(){
+//help func to attack
+Character * Team::getClosestAliveMember(){                  
      double minimum_distance = std::numeric_limits<double>::max();
         Character* closetMember = nullptr;
         for (Character* member : this->members) {
@@ -79,6 +83,7 @@ void Team::attack(Team* enemy_team) {
         if (closetEnemy == nullptr) {
             break;
         }  
+        //first print coboy than ninja
         if (member->isAlive() && dynamic_cast<Cowboy*>(member)) {
             Cowboy* cowboy = dynamic_cast<Cowboy*>(member);
             if (cowboy->hasboolets()) {
@@ -118,6 +123,7 @@ void Team::attack(Team* enemy_team) {
     }
 }
 
+//help func to attack
 Character* Team::getClosestEnemy(Team* enemyTeam) {
     double closetEnemyDistance = std::numeric_limits<double>::max();
     Character* closetEnemy = nullptr;
@@ -144,24 +150,8 @@ Character* Team::getClosestEnemy(Team* enemyTeam) {
             } 
             return sum;
           }
-        void Team::print(){
-        //      for(const Character& member : members){
-        //     Cowboy* cowboy = dynamic_cast<Cowboy*>(member);
-        //     if(cowboy){
-        //         cout<<cowboy->print();
-        //         cout<<endl;
-        //     }
-            
-        // }
 
-        // for(const Character& member : members){
-        //     Cowboy* cowboy = dynamic_cast<Cowboy*>(member);
-        //     if(!cowboy){
-        //         cout << member.print();
-        //         cout<<endl;
-        //     }
-        // }
-
+    void Team::print(){
         for (auto& member : members) {
         Cowboy* cowboy = dynamic_cast<Cowboy *>(member);
         if (cowboy != nullptr) {
@@ -179,7 +169,6 @@ Character* Team::getClosestEnemy(Team* enemyTeam) {
             for (auto member : getMembers()) {
                 delete member;
             }
-             //   size = 0;
             leader = nullptr;
         }
 }
